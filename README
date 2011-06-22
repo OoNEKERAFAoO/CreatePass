@@ -12,4 +12,4 @@
 
 	2) Run 'execute' script to compile:
 
-	./toolchain.sh
+	./execute.sh
