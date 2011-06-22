@@ -1,0 +1,15 @@
+===================
+		What does this do?
+===================
+
+	If you do not know how to make a secure password, CreatePass may be your solution. This is the Linux version.
+  
+===================
+		How do I use it?
+===================
+
+	1) Download the source code from GitHub or from author's webpage.
+
+	2) Run 'execute' script to compile:
+
+	./toolchain.sh
