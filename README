@@ -3,7 +3,7 @@
 ===================
 
 	If you do not know how to make a secure password, CreatePass may be your solution. This is the Linux version.
-  
+
 ===================
 		How do I use it?
 ===================
@@ -12,4 +12,16 @@
 
 	2) Run 'execute' script to compile:
 
-	./execute.sh
+	./toolchain.sh
+
+===================
+		What is new? 1.01v
+===================
+
+	1) Máx 32. characteres
+
+	2) New include symbols
+
+	3) New include advices
+
+	4) Update execute.sh
