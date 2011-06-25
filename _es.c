@@ -1,22 +1,26 @@
 /*
  * CreatePass 1.0 (Linux)
- * Si no sabes cómo hacer una contraseña segura, CreatePass puede ser su solución. Esta es la versión de Linux.
+ * Si no sabes cómo hacer una contraseña segura, CreatePass puede ser su solución.
  * 
- * Creado por NEKERAFA el mié, 22 jun 2011 00:20:31 (CEST)
- * Copyleft 2011 NEKERAFA (nekerafa@gmail.com)
+ * Creado por NEKERAFA el sáb, 25 jun 2011 13:25:22 (CEST) 
+ * Creative Commons Reconocimiento-NoComercial-CompartirIgual 3.0 España, 2011 NEKERAFA (nekerafa@gmail.com)
+ * http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.es
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define VERSION 1.0
+#define VERSION 1.01
 #define CREATOR "NEKERAFA"
 #define SYSTEM "Linux"
 
 int size;
 int cycle;
-int character;
-int password[15];
+int advice;
+int symbols = 0;
+int numbers = 0;
+int letters = 0;
+char password[31];
 
 // Randomer: Create a random number
 int randomer(int from, int until) {
@@ -33,34 +37,62 @@ int main() {
 	srand(time(NULL));
 
 	// Main of programme, print greeting
-	printf("CreatePass %.2f (%s)\nCopyleft %s 2011\n\n", VERSION, SYSTEM, CREATOR);
-	printf("¿Cómo de grande es su contraseña? (Máx. 16 caracteres)\n");
-	
+	printf("CreatePass %.2fv (%s)\nCopyleft %s 2011\n\n", VERSION, SYSTEM, CREATOR);
+	printf("¿Cómo de grande es su contraseña? (Máx. 32 caracteres)\n");
+
 	scanf("%i", &size);
 	size--;
-	if(size>15) {
-		size = 15;
+	if(size>31) {
+		size = 31;
 	}
 
-	printf("Tu contraseña: ");
+	// Create the password
+	printf("Su contraseña: ");
 	for(cycle=0; cycle<=size; cycle++) {
-		character = randomer(0,2);
-		switch(character) {
-			case 0:
-				password[cycle] = randomer(0,9);
-				printf("%i", password[cycle]);
-				break;
-			case 1:
-				password[cycle] = randomer(65,90);
-				printf("%c", password[cycle]);
-				break;
-			case 2:
-				password[cycle] = randomer(97,122);
-				printf("%c", password[cycle]);
-				break;
-		}
+			password[cycle] = randomer(33,126);
+			if (password[cycle] >= 48 && password[cycle] <= 57) {
+				numbers++;
+			}
+			else if	((password[cycle] >= 65 && password[cycle] <= 90) || (password[cycle] >= 97 && password[cycle] <= 122)) {
+				letters++;
+			}
+			else {
+				symbols++;
+			}
+			printf("%c", password[cycle]);
 	}
-	printf("\n");
 	
+	// Print password
+	if (numbers >= letters && numbers >= symbols) {
+		printf(" (Segura*)\n	*Se recomendaría volver a generar la contraseña.\n\n");
+	}
+	else if (letters >= numbers && letters >= symbols) {
+		printf(" (Segura)\n\n");
+	}
+	else if (symbols >= letters && symbols >= numbers) {
+		printf(" (Muy Segura)\n\n");
+	}
+	else {
+		printf(" (Excelente)\n\n");
+	}
+
+	// Print a advice for use a password
+	advice = randomer(1,4);
+	switch (advice) {
+		case 1:
+			printf("Consejo: Aunque se le proporcione una contraseña segura, es recomendable cambiarla con regularidad.\n");
+			break;
+		case 2:
+			printf("¿Sabía que entre las contraseñas más populares de la historia figuran contraseñas del tipo '1234' o incluso '0000'.\n");
+			break;
+		case 3:
+			printf("Consejo: nunca escriba en una contraseña su nombre propio o que este compuesta por numeros. Para más seguridad se recomienda intercalar mayúsculas, minúsculas y símbolos.\n");
+			break;
+		case 4:
+			printf("¿Sabía que las primeras contraseñas eran el  \"Santo y seña\" que utilizaban los centinelas?\n");
+			break;
+		}
+
+	getchar();
 	return 0;
 }
